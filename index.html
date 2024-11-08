@@ -4,98 +4,62 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>DSPCraft</title>
-    <style>
-        body, html {
-            margin: 0;
-            padding: 0;
-            width: 100%;
-            height: 100%;
-            overflow: hidden;
-            background-color: #1a1a1a;
-        }
-        canvas {
-            display: block;
-        }
-    </style>
+    <link href="https://fonts.googleapis.com/css2?family=Exo+2:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/styles.css">
 </head>
 <body>
-    <canvas id="waveCanvas"></canvas>
+    <nav>
+        <ul>
+            <li><a href="/">Home</a></li>
+            <li><a href="/src">SRC</a></li>
+            <li><a href="/about">About</a></li>
+            <li><a href="/contact">Contact Us</a></li>
+        </ul>
+    </nav>
+
+    <section class="hero">
+        <h1>High-performance solutions for scientists and engineers</h1>
+        <p>Making algorithm development easier and more efficient</p>
+    </section>
+
+    <div class="container">
+        <section id="about" class="section">
+            <h2>Empowering Scientific Computing</h2>
+            <div class="grid">
+                <div class="card">
+                    <h3>Built from First Principles</h3>
+                    <p>We develop high-performance numerical libraries from mathematical foundations, ensuring robust and efficient implementations that scientists and engineers can trust. Our ground-up approach eliminates legacy constraints and bloated dependencies.</p>
+                </div>
+                <div class="card">
+                    <h3>Performance by Design</h3>
+                    <p>Traditional prototyping tools sacrifice speed for convenience, leading to frustrating development cycles. Our libraries are built with performance as a core feature, not an afterthought, dramatically reducing computation time and accelerating your research.</p>
+                </div>
+                <div class="card">
+                    <h3>Seamless Integration</h3>
+                    <p>While most tools force you to choose between ease of use and implementation efficiency, our solutions bridge this gap. Deploy your algorithms from research to production without the usual overhead of rewriting or optimization.</p>
+                </div>
+                <div class="card">
+                    <h3>Platform Independence</h3>
+                    <p>Say goodbye to dependency hell and cross-compilation nightmares. Our libraries are designed to work consistently across different platforms, from workstations to embedded systems, saving you countless hours of environment setup and maintenance.</p>
+                </div>
+            </div>
+            <div class="summary-card">
+                <p class="highlight">Performance isn't just an optimization – it's the key to innovation. Our libraries, built from first principles, eliminate the traditional trade-off between development speed and execution performance, giving scientists and engineers the freedom to push boundaries.</p>
+            </div>
+        </section>
+        
+    </div>
 
     <script>
-        const canvas = document.getElementById('waveCanvas');
-        const ctx = canvas.getContext('2d');
-
-        const waves = [
-            { phase: 0, speed: 0.03, amplitude: 80, color: 'rgba(52, 152, 219, 0.3)' },
-            { phase: 2, speed: 0.04, amplitude: 100, color: 'rgba(46, 204, 113, 0.3)' },
-            { phase: 4, speed: 0.02, amplitude: 120, color: 'rgba(155, 89, 182, 0.3)' },
-            { phase: 6, speed: 0.05, amplitude: 90, color: 'rgba(241, 196, 15, 0.3)' }
-        ];
-
-        const logo = new Image();
-        logo.src = 'resources/logo.png';
-
-        function resizeCanvas() {
-            canvas.width = window.innerWidth;
-            canvas.height = window.innerHeight;
-        }
-
-        function drawWaves() {
-            ctx.clearRect(0, 0, canvas.width, canvas.height);
-
-            waves.forEach(wave => {
-                ctx.beginPath();
-                ctx.moveTo(0, canvas.height / 2);
-
-                for (let x = 0; x < canvas.width; x++) {
-                    let y = Math.sin(x * 0.015 + wave.phase) * wave.amplitude + canvas.height * 0.5;
-                    ctx.lineTo(x, y);
-                }
-
-                ctx.strokeStyle = wave.color;
-                ctx.lineWidth = 3;
-                ctx.stroke();
-
-                wave.phase += wave.speed;
+        // Add smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
             });
-
-            drawLogo();
-
-            requestAnimationFrame(drawWaves);
-        }
-
-        function drawLogo() {
-            if (logo.complete) {
-                const logoSize = Math.min(canvas.width, canvas.height) * 1;
-                const scale = logoSize / Math.max(logo.width, logo.height);
-                const logoWidth = logo.width * scale;
-                const logoHeight = logo.height * scale;
-                const x = canvas.width / 2;
-                const y = canvas.height / 2;
-
-                ctx.save();
-                ctx.translate(x, y);
-
-                // Draw semi-transparent background
-                const bgRadius = Math.max(logoWidth, logoHeight) / 2;
-                ctx.beginPath();
-                ctx.arc(0, 0, bgRadius, 0, Math.PI * 2);
-                ctx.fillStyle = 'rgba(255, 255, 255, 0.1)'; // Semi-transparent white
-                ctx.fill();
-
-                // Draw logo
-                ctx.drawImage(logo, -logoWidth / 2, -logoHeight / 2, logoWidth, logoHeight);
-
-                ctx.restore();
-            }
-        }
-
-        logo.onload = function() {
-            drawWaves(); // Start the animation once the logo is loaded
-        };
-
-        window.addEventListener('resize', resizeCanvas);
-        resizeCanvas();
+        });
     </script>
 </body>
 </html>

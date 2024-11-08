@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About | DSPCraft</title>
+    <link href="https://fonts.googleapis.com/css2?family=Exo+2:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../css/styles.css">
+    <style>
+        .about-hero {
+            background: var(--primary-color);
+            padding: 8rem 2rem 6rem;
+            color: white;
+            text-align: center;
+        }
+
+        .about-hero h1 {
+            font-size: 2.5rem;
+            margin-bottom: 1.5rem;
+            font-weight: 600;
+        }
+
+        .about-hero p {
+            font-size: 1.25rem;
+            max-width: 800px;
+            margin: 0 auto;
+            line-height: 1.6;
+        }
+
+        .team-section {
+            padding: 4rem 0;
+            background: var(--background-color);
+        }
+
+        .mission-statement {
+            background: white;
+            padding: 3rem;
+            border-radius: 8px;
+            box-shadow: 0 2px 15px rgba(0,0,0,0.1);
+            margin: 2rem auto;
+            max-width: 900px;
+        }
+
+        .mission-statement h2 {
+            color: var(--primary-color);
+            font-size: 1.75rem;
+            margin-bottom: 1.5rem;
+            font-weight: 600;
+        }
+
+        .mission-statement p {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            color: var(--text-color);
+            margin-bottom: 1.5rem;
+        }
+
+        .highlight-box {
+            background: var(--primary-color);
+            color: white;
+            padding: 2rem;
+            border-radius: 8px;
+            margin-top: 3rem;
+            text-align: center;
+        }
+
+        /* Add these specific rules to ensure white text */
+        .highlight-box p {
+            color: white !important; /* Force white color */
+            font-size: 1.25rem;
+            line-height: 1.6;
+            margin: 0;
+            font-weight: 500;
+            text-shadow: 0 1px 2px rgba(0,0,0,0.1);
+        }
+        
+        .expertise-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .expertise-card {
+            background: white;
+            padding: 2rem;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .expertise-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+
+        .expertise-card h3 {
+            color: var(--primary-color);
+            font-size: 1.25rem;
+            margin-bottom: 1rem;
+            font-weight: 600;
+        }
+
+        .expertise-card ul {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        .expertise-card li {
+            margin-bottom: 0.75rem;
+            padding-left: 1.5rem;
+            position: relative;
+        }
+
+        .expertise-card li::before {
+            content: "→";
+            position: absolute;
+            left: 0;
+            color: var(--accent-color);
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <ul>
+            <li><a href="/">Home</a></li>
+            <li><a href="/src">SRC</a></li>
+            <li><a href="/about">About</a></li>
+            <li><a href="/contact">Contact Us</a></li>
+        </ul>
+    </nav>
+
+    <section class="about-hero">
+        <h1>Crafting the Future of Signal Processing</h1>
+        <p>A team of PhDs passionate about pushing the boundaries of algorithmic efficiency</p>
+    </section>
+
+    <div class="container">
+        <section class="team-section">
+            <div class="mission-statement">
+                <h2>Who We Are</h2>
+                <p>We are a team of computer scientists and engineers with PhDs in signal processing, numerical computing, and algorithm design. Our diverse backgrounds converge on a single mission: revolutionizing how scientific computing is done.</p>
+                
+                <p>What sets us apart isn't just our academic credentials – it's our practical experience in bridging the gap between theoretical advancement and real-world implementation. We've experienced firsthand the limitations of existing tools and decided to build better ones.</p>
+
+                <div class="highlight-box">
+                    <p>Our approach is unique: we combine cutting-edge signal processing algorithms with our own high-performance tools, delivering solutions that are both theoretically sound and practically efficient.</p>
+                </div>
+            </div>
+
+            <div class="expertise-grid">
+                <div class="expertise-card">
+                    <h3>Our Expertise</h3>
+                    <ul>
+                        <li>Signal Processing</li>
+                        <li>High-Performance Computing</li>
+                        <li>Numerical Algorithms</li>
+                        <li>Real-time Systems</li>
+                        <li>Machine Learning & AI</li>
+                    </ul>
+                </div>
+                
+                <div class="expertise-card">
+                    <h3>Our Commitment</h3>
+                    <ul>
+                        <li>First-principles approach</li>
+                        <li>Performance by design</li>
+                        <li>Practical usability</li>
+                        <li>Continuous innovation</li>
+                    </ul>
+                </div>
+                
+                <div class="expertise-card">
+                    <h3>Our Impact</h3>
+                    <ul>
+                        <li>Faster development cycles</li>
+                        <li>Optimized performance</li>
+                        <li>Reduced complexity</li>
+                        <li>Enhanced productivity</li>
+                        <li>Better results</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+    </div>
+
+</body>
+</html>

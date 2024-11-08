@@ -1,0 +1,490 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SRC | DSPCraft</title>
+    <link href="https://fonts.googleapis.com/css2?family=Exo+2:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../css/styles.css">
+    <style>
+        .audio-workspace {
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            padding: 2rem;
+        }
+
+        .upload-button {
+            background-color: var(--accent-color);
+            color: white;
+            padding: 0.75rem 2rem;
+            border: none;
+            border-radius: 4px;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .upload-button:hover {
+            background-color: #2980b9;
+        }
+
+        .upload-section {
+            text-align: center;
+            padding: 3rem;
+            border: 2px dashed #ccc;
+            border-radius: 8px;
+            margin-bottom: 2rem;
+            transition: all 0.3s ease;
+        }
+
+        .upload-section.dragover {
+            border-color: var(--accent-color);
+            background: rgba(52, 152, 219, 0.1);
+        }
+
+        .upload-section h2 {
+            color: var(--primary-color);
+            margin-bottom: 1rem;
+        }
+
+        .file-input {
+            display: none;
+        }
+
+        .file-info {
+            background: white;
+            padding: 2rem;
+            border-radius: 8px;
+            box-shadow: 0 2px 15px rgba(0,0,0,0.1);
+            margin-bottom: 1rem;
+        }
+
+        .file-info h3 {
+            color: var(--primary-color);
+            margin-bottom: 1rem;
+            font-size: 1.25rem;
+        }
+
+        .file-info-content {
+            background: var(--background-color);
+            padding: 1rem;
+            border-radius: 4px;
+            font-size: 0.9rem;
+        }
+
+        .file-info-content p {
+            margin: 0.5rem 0;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 2rem auto;
+            padding: 2rem;
+        }
+
+        .control-card {
+            background: white;
+            padding: 2rem;
+            border-radius: 8px;
+            box-shadow: 0 2px 15px rgba(0,0,0,0.1);
+            margin-bottom: 1rem;
+        }
+
+        .control-card h3 {
+            color: var(--primary-color);
+            margin-bottom: 1rem;
+            font-size: 1.25rem;
+        }
+
+        .control-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .control-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: var(--text-color);
+        }
+
+        .control-group input[type="range"] {
+            width: 100%;
+            margin: 0.5rem 0;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+
+        select {
+            width: 100%;
+            padding: 0.75rem;
+            border: 2px solid #e2e8f0;
+            border-radius: 4px;
+            font-size: 1rem;
+            background-color: white;
+            cursor: pointer;
+            transition: border-color 0.3s ease;
+        }
+
+        select:focus {
+            outline: none;
+            border-color: var(--accent-color);
+        }
+
+        .action-button {
+            width: 100%;
+            padding: 0.75rem;
+            background: var(--accent-color);
+            color: white;
+            border: none;
+            border-radius: 4px;
+            font-size: 1rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .action-button:hover {
+            background-color: #2980b9;
+        }
+
+        .action-button:disabled {
+            background-color: #ccc;
+            cursor: not-allowed;
+        }
+
+        .status {
+            margin-top: 1rem;
+            padding: 0.75rem;
+            border-radius: 4px;
+            text-align: center;
+            display: none;
+        }
+
+        .status.success {
+            display: block;
+            background-color: rgba(46, 204, 113, 0.1);
+            color: #2ecc71;
+        }
+
+        .status.error {
+            display: block;
+            background-color: rgba(231, 76, 60, 0.1);
+            color: #e74c3c;
+        }
+        
+        .status.info {
+            display: block;
+            background-color: rgba(52, 152, 219, 0.1);
+            color: #3498db;
+        }
+
+        .spinner {
+            display: inline-block;
+            width: 40px;
+            height: 40px;
+            border: 4px solid #f3f3f3;
+            border-top: 4px solid #3498db;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin: 10px;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .processing-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.5);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+        }
+
+        .processing-content {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <ul>
+            <li><a href="/">Home</a></li>
+            <li><a href="/src">SRC</a></li>
+            <li><a href="/about">About</a></li>
+            <li><a href="/contact">Contact Us</a></li>
+        </ul>
+    </nav>
+
+    <div class="container">
+        <section class="section">
+            <h2>Sample Rate Conversion</h2>
+            <div class="container">
+                <div class="audio-workspace">
+                    <div class="upload-section" id="dropZone">
+                        <h2>Upload WAV File</h2>
+                        <input type="file" id="fileInput" class="file-input" accept=".wav">
+                        <button class="upload-button" onclick="document.getElementById('fileInput').click()">
+                            Choose File or Drag & Drop
+                        </button>
+                        <div id="status" class="status"></div>
+                    </div>
+        
+                    <div id="fileInfo" class="file-info">
+                        <h3>File Information</h3>
+                        <p id="fileDetails"></p>
+                    </div>
+                    
+                    <div id="processingOverlay" class="processing-overlay" style="display: none;">
+                        <div class="processing-content">
+                          <div class="spinner"></div>
+                          <div id="processingStatus">Processing audio...</div>
+                        </div>
+                    </div>
+
+                    <div class="controls">
+                        <div class="control-card">
+                            <h3>Convert To</h3>
+                            <div class="control-group">
+                                <select id="sampleRate">
+                                    <option value="44100">44.1 kHz</option>
+                                    <option value="88200">88.2 kHz</option>
+                                    <option value="176400">176.4 kHz</option>
+                                    <option value="48000">48 kHz</option>
+                                    <option value="96000">96 kHz</option>
+                                    <option value="192000">192 kHz</option>
+                                </select>
+                            </div>
+                        </div>
+                        <button id="exportButton" class="action-button" onclick="convertAndExport()">Export</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <script src="dsrc.js"></script>
+        <script>
+            // File handling
+            let audioContext = null;
+            let audioBuffer = null;
+            let originalSampleRate = null;
+            let originalFilename = "";
+
+            // Setup drag and drop
+            const dropZone = document.getElementById('dropZone');
+            const fileInput = document.getElementById('fileInput');
+            const status = document.getElementById('status');
+    
+            // Drag and drop handlers
+            dropZone.addEventListener('dragover', (e) => {
+                e.preventDefault();
+                dropZone.classList.add('dragover');
+            });
+    
+            dropZone.addEventListener('dragleave', () => {
+                dropZone.classList.remove('dragover');
+            });
+    
+            dropZone.addEventListener('drop', (e) => {
+                e.preventDefault();
+                dropZone.classList.remove('dragover');
+                const files = e.dataTransfer.files;
+                handleFile(files[0]);
+            });
+    
+            fileInput.addEventListener('change', (e) => {
+                handleFile(e.target.files[0]);
+            });
+    
+            function parseWavHeader(buffer) {
+                const view = new DataView(buffer);
+                return {
+                    sr: view.getUint32(24, true), 
+                    channels: view.getUint16(22, true), 
+                }
+            }
+
+            function handleFile(file) {
+                if (!file) return;
+                
+                if (!file.type.includes('wav') && !file.type.includes('audio')) {
+                    showStatus('Please upload a WAV file.', 'error');
+                    return;
+                }
+    
+                const reader = new FileReader();
+                reader.onload = async (e) => {
+                    try {
+                        const rawBuff = await file.arrayBuffer();
+                        const wavHeader = parseWavHeader(rawBuff);
+                        
+                        if (wavHeader.channels !== 1) {
+                            showStatus('Only mono files are supported.', 'error');
+                            return;
+                        }
+
+                        originalSampleRate = wavHeader.sr;
+                        if (!audioContext) {
+                            audioContext = new (window.AudioContext || window.webkitAudioContext)({
+                                sampleRate: originalSampleRate,
+                            });
+                        }
+                        
+                        audioBuffer = await audioContext.decodeAudioData(e.target.result);
+                        // NOTE: the audioBuffer is always in float32 format so I can pass this directly to DSC
+
+                        showFileInfo(file, audioBuffer);
+                        showStatus('File loaded successfully!', 'success');
+                        originalFilename = file.name.replace('.wav', '');
+                    } catch (error) {
+                        showStatus('Error loading audio file.', 'error');
+                        console.error('Error:', error);
+                    }
+                };
+                reader.readAsArrayBuffer(file);
+            }
+    
+            // UI updates
+            function showStatus(message, type) {
+                status.textContent = message;
+                status.className = 'status ' + type;
+            }
+    
+            function showFileInfo(file, buffer) {
+                const fileInfo = document.getElementById('fileInfo');
+                const fileDetails = document.getElementById('fileDetails');
+                fileDetails.innerHTML = `
+                    <strong>Name:</strong> ${file.name}<br>
+                    <strong>Size:</strong> ${(file.size / 1024).toFixed(2)} KB<br>
+                    <strong>Sample Rate:</strong> ${buffer.sampleRate} Hz<br>
+                    <strong>Duration:</strong> ${buffer.duration.toFixed(2)} seconds<br>
+                    <strong>Channels:</strong> ${buffer.numberOfChannels}
+                `;
+                fileInfo.classList.add('visible');
+            }
+    
+            async function convertAndExport() {
+                if (!audioBuffer) {
+                    showStatus('Please load a file first.', 'error');
+                    return;
+                }
+                const overlay = document.getElementById('processingOverlay');
+                const statusText = document.getElementById('processingStatus');
+                
+                // Show the spinner
+                overlay.style.display = 'flex';
+                statusText.textContent = 'Preparing audio...';
+                await new Promise(resolve => setTimeout(resolve, 0));
+
+                await Module.ready;
+
+                // Convert up to 30s of audio 48kHz @4FS
+                const maxOutSamples = 30 * 192000;
+
+                const samplesInPtr = Module._malloc(audioBuffer.length * 4);
+                const samplesOutPtr = Module._malloc(maxOutSamples * 4);
+                try {
+                    const targetSampleRate = parseInt(document.getElementById('sampleRate').value);
+                    
+                    statusText.textContent = 'Converting audio...';
+
+                    const wasmInArr = new Float32Array(Module.HEAPF32.buffer, samplesInPtr, audioBuffer.length);
+                    const wasmOutArr = new Float32Array(Module.HEAPF32.buffer, samplesOutPtr, maxOutSamples);
+                    
+                    wasmInArr.set(audioBuffer);
+                    
+                    const nOutSamples = Module._dsc_src(
+                        samplesInPtr,
+                        samplesOutPtr,
+                        audioBuffer.length,
+                        originalSampleRate,
+                        targetSampleRate,
+                        26,
+                        22000,
+                        100
+                    );
+
+                    statusText.textContent = 'Processing complete...';
+
+                    const outSamples = new Float32Array(nOutSamples);
+                    outSamples.set(new Float32Array(Module.HEAPF32.buffer, samplesOutPtr, nOutSamples));
+
+                    const numberOfChannels = 1;
+                    const length = outSamples.length;
+                    const sampleRate = targetSampleRate;
+                    const bitsPerSample = 32;
+                    const bytesPerSample = bitsPerSample / 8;
+                    const blockAlign = numberOfChannels * bytesPerSample;
+                    const byteRate = sampleRate * blockAlign;
+                    const dataSize = length * blockAlign;
+
+                    // Create WAV header
+                    const headerBuffer = new ArrayBuffer(44);
+                    const dv = new DataView(headerBuffer);
+
+                    // "RIFF" chunk descriptor
+                    writeString(dv, 0, 'RIFF');
+                    dv.setUint32(4, 36 + dataSize, true);
+                    writeString(dv, 8, 'WAVE');
+
+                    // "fmt " sub-chunk
+                    writeString(dv, 12, 'fmt ');
+                    dv.setUint32(16, 16, true);           // Subchunk1Size (16 for PCM)
+                    dv.setUint16(20, 3, true);            // AudioFormat (3 for IEEE Float)
+                    dv.setUint16(22, numberOfChannels, true);
+                    dv.setUint32(24, sampleRate, true);
+                    dv.setUint32(28, byteRate, true);
+                    dv.setUint16(32, blockAlign, true);
+                    dv.setUint16(34, bitsPerSample, true);
+
+                    // "data" sub-chunk
+                    writeString(dv, 36, 'data');
+                    dv.setUint32(40, dataSize, true);
+
+                    // Combine header and samples
+                    const blob = new Blob([headerBuffer, outSamples.buffer], { type: 'audio/wav' });
+                    const url = URL.createObjectURL(blob);
+
+                    // Create and trigger download
+                    const a = document.createElement('a');
+                    a.href = url;
+                    a.download = `${originalFilename}_${targetSampleRate}kHz.wav`;
+                    document.body.appendChild(a);
+                    a.click();
+                    document.body.removeChild(a);
+                    URL.revokeObjectURL(url);
+
+                    showStatus('File exported successfully as 32-bit float WAV!', 'success');
+                } catch (error) {
+                    console.error('Export error:', error);
+                    showStatus('Error exporting file.', 'error');
+                } finally {
+                    Module._free(samplesInPtr);
+                    Module._free(samplesOutPtr);
+                    // Hide the spinner
+                    overlay.style.display = 'none';
+                }
+                showStatus('File exported!', 'success');
+            }
+
+            // Helper function for writing strings to DataView
+            function writeString(view, offset, string) {
+                for (let i = 0; i < string.length; i++) {
+                    view.setUint8(offset + i, string.charCodeAt(i));
+                }
+            }
+        </script>
+    </div>
+</body>
+</html>

@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact Us | DSPCraft</title>
+    <link href="https://fonts.googleapis.com/css2?family=Exo+2:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../css/styles.css">
+    <style>
+        .contact-hero {
+            background: var(--primary-color);
+            padding: 8rem 2rem 6rem;
+            color: white;
+            text-align: center;
+        }
+
+        .contact-hero h1 {
+            font-size: 2.5rem;
+            margin-bottom: 1.5rem;
+            font-weight: 600;
+        }
+
+        .contact-hero p {
+            font-size: 1.25rem;
+            max-width: 800px;
+            margin: 0 auto;
+            line-height: 1.6;
+        }
+
+        .contact-section {
+            max-width: 800px;
+            margin: 4rem auto;
+            padding: 0 2rem;
+        }
+
+        .contact-card {
+            background: white;
+            padding: 3rem;
+            border-radius: 8px;
+            box-shadow: 0 2px 15px rgba(0,0,0,0.1);
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: var(--primary-color);
+            font-weight: 500;
+        }
+
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 0.75rem;
+            border: 2px solid #e2e8f0;
+            border-radius: 4px;
+            font-family: 'Exo 2', sans-serif;
+            font-size: 1rem;
+            transition: border-color 0.3s ease;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: var(--accent-color);
+        }
+
+        .form-group textarea {
+            min-height: 150px;
+            resize: vertical;
+        }
+
+        button[type="submit"] {
+            background-color: var(--accent-color);
+            color: white;
+            padding: 0.75rem 2rem;
+            border: none;
+            border-radius: 4px;
+            font-size: 1rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        button[type="submit"]:hover {
+            background-color: #2980b9;
+        }
+
+        .direct-contact {
+            margin-top: 3rem;
+            text-align: center;
+            padding: 2rem;
+            background: #f8fafc;
+            border-radius: 8px;
+        }
+
+        .direct-contact h3 {
+            color: var(--primary-color);
+            margin-bottom: 1rem;
+        }
+
+        .direct-contact a {
+            color: var(--accent-color);
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        .direct-contact a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <ul>
+            <li><a href="/">Home</a></li>
+            <li><a href="/src">SRC</a></li>
+            <li><a href="/about">About</a></li>
+            <li><a href="/contact">Contact Us</a></li>
+        </ul>
+    </nav>
+
+    <section class="contact-hero">
+        <h1>Get in Touch</h1>
+        <p>Have a question about our signal processing solutions? We'd love to hear from you.</p>
+    </section>
+
+    <div class="contact-section">
+        <div class="contact-card">
+            <form action="https://formspree.io/f/xbljgzeq" method="POST">
+                <div class="form-group">
+                    <label for="name">Name</label>
+                    <input type="text" id="name" name="name" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="email">Email</label>
+                    <input type="email" id="email" name="email" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="subject">Subject</label>
+                    <input type="text" id="subject" name="subject" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="message">Message</label>
+                    <textarea id="message" name="message" required></textarea>
+                </div>
+
+                <button type="submit">Send Message</button>
+            </form>
+        </div>
+
+        <div class="direct-contact">
+            <h3>Prefer to email us directly?</h3>
+            <p>Reach out to us at <a href="mailto:info@dspcraft.com">info@dspcraft.com</a></p>
+        </div>
+    </div>
+
+    <footer>
+        <!-- Your existing footer -->
+    </footer>
+</body>
+</html>

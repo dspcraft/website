@@ -1,0 +1,202 @@
+/* Modern normalize and SVG waves */
+:root {
+    --primary-color: #040080; /* Dark blue from presentation */
+    --secondary-color: #2a3b57;
+    --accent-color: #3498db;
+    --text-color: #2c3e50;
+    --background-color: #f5f6fa;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Exo 2', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+}
+
+body {
+    background-color: var(--background-color);
+    color: var(--text-color);
+    line-height: 1.6;
+}
+
+nav {
+    background-color: var(--primary-color);
+    padding: 1rem;
+    position: fixed;
+    width: 100%;
+    top: 0;
+    z-index: 1000;
+}
+
+nav ul {
+    display: flex;
+    justify-content: flex-end;
+    list-style: none;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+nav ul li a {
+    color: white;
+    text-decoration: none;
+    padding: 0.5rem 1rem;
+    transition: color 0.3s ease;
+}
+
+nav ul li a:hover {
+    color: var(--accent-color);
+}
+
+.hero {
+    background-color: var(--primary-color);
+    color: white;
+    padding: 8rem 2rem 4rem;
+    text-align: center;
+}
+
+.hero h1 {
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 2rem;
+}
+
+.section {
+    margin: 4rem 0;
+}
+
+.section h2 {
+    color: var(--primary-color);
+    margin-bottom: 2rem;
+}
+
+.grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+}
+
+.card {
+    background: white;
+    padding: 2rem;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.button {
+    display: inline-block;
+    background-color: var(--accent-color);
+    color: white;
+    padding: 0.8rem 1.5rem;
+    border-radius: 4px;
+    text-decoration: none;
+    transition: background-color 0.3s ease;
+}
+
+.button:hover {
+    background-color: #2980b9;
+}
+
+footer {
+    background-color: var(--primary-color);
+    color: white;
+    padding: 2rem;
+    text-align: center;
+    margin-top: 4rem;
+}
+
+@media (max-width: 768px) {
+    .hero {
+        padding: 6rem 1rem 3rem;
+    }
+
+    .hero h1 {
+        font-size: 2rem;
+    }
+
+    .container {
+        padding: 1rem;
+    }
+}
+
+
+section h2 {
+    color: var(--primary-color);
+    font-size: 2.5rem;
+    margin-bottom: 2.5rem;
+    text-align: center;
+    font-weight: 600;
+}
+
+.grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 2rem;
+    margin-bottom: 3rem;
+}
+
+.card {
+    background: white;
+    padding: 2rem;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+}
+
+.card h3 {
+    color: var(--primary-color);
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
+    font-weight: 600;
+}
+
+.card p {
+    color: var(--text-color);
+    line-height: 1.6;
+    font-size: 1.1rem;
+}
+
+.summary-card {
+    background: var(--primary-color);
+    color: white;
+    padding: 2.5rem;
+    border-radius: 8px;
+    margin-top: 3rem;
+    text-align: center;
+}
+
+.summary-card .highlight {
+    font-size: 1.25rem;
+    line-height: 1.8;
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+@media (max-width: 768px) {
+    .section h2 {
+        font-size: 2rem;
+        margin-bottom: 2rem;
+    }
+    
+    .grid {
+        gap: 1.5rem;
+    }
+    
+    .summary-card {
+        padding: 2rem;
+    }
+    
+    .summary-card .highlight {
+        font-size: 1.1rem;
+    }
+}
